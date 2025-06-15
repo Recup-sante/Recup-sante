@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:16
+    container_name: recup-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: recupsante
+      POSTGRES_USER: recup
+      POSTGRES_PASSWORD: recup
+    ports:
+      - "5432:5432"
+    networks:
+      - recup-net
+
+networks:
+  recup-net:
+
+
