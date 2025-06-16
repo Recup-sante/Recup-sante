@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build & Test backend
-        working-directory: back
+        working-directory: recup-back
         run: |
           ./mvnw clean verify -DskipTests=false
 
@@ -38,7 +38,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        working-directory: front
+        working-directory: recup-front
         run: npm ci
 
       - name: Lint
