@@ -42,9 +42,9 @@ jobs:
         run: npm ci
 
       - name: Lint
-        working-directory: front
+        working-directory: recup-front
         run: npm run lint
 
       - name: Test
-        working-directory: front
+        working-directory: recup-front
         run: npm run test -- --watch=false --browsers=ChromeHeadless
