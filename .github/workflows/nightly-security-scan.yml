@@ -1,0 +1,33 @@
+name: Nightly Security Scan
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Tous les jours à 2h du matin (UTC)
+  workflow_dispatch:      # Permet aussi de lancer manuellement
+
+jobs:
+  zap_scan:
+    name: OWASP ZAP Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.7.0
+        with:
+          target: 'https://ton-site.com'  # Remplace par l'URL de ton site
+          fail_action: false              # Le job ne plante pas même si des vulnérabilités sont trouvées
+          docker_name: 'ghcr.io/zaproxy/zap-baseline:latest'
+
+  trivy_scan:
+    name: Trivy Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Run Trivy vulnerability scanner on image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ton-image:latest'  # Remplace par ton image Docker
+          format: 'table'
+          exit-code: '0'  # Ne stoppe pas le job si vulnérabilités détectées
+          ignore-unfixed: true
