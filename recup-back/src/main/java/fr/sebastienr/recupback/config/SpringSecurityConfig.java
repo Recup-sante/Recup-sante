@@ -18,11 +18,16 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-       return http.authorizeHttpRequests(auth -> {
-         auth.requestMatchers("/admin").hasRole("ADMIN");
-         auth.requestMatchers("/user").hasRole("USER");
-         auth.anyRequest().authenticated();
-       }).formLogin(Customizer.withDefaults()).build();
+        return http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/association/**").hasRole("USER")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(Customizer.withDefaults())
+                .build();
     }
 
     @Bean
