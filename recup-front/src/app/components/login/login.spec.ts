@@ -1,23 +1,53 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {LoginComponent} from './login';
+import {describe, expect, test} from '@jest/globals';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
+import {of, throwError} from 'rxjs';
 
-import { Login } from './login';
 
-describe('Login', () => {
-  let component: Login;
-  let fixture: ComponentFixture<Login>;
+describe('LoginComponent', () => {
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+  let mockAuthService: any;
+  let mockRouter: any;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Login]
-    })
-    .compileComponents();
+    mockAuthService = {
+      login: jest.fn()
+    };
+    mockRouter = {
+      navigateByUrl: jest.fn()
+    };
 
-    fixture = TestBed.createComponent(Login);
+    await TestBed.configureTestingModule({
+      declarations: [LoginComponent],
+      providers: [
+        { provide: AuthService, useValue: mockAuthService },
+        { provide: Router, useValue: mockRouter }
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  test('should login and navigate', () => {
+    mockAuthService.login.mockReturnValue(of({ user: { id: 1, name: 'Test', email: 't@t.com' } }));
+    component.username = 'test';
+    component.password = 'pass';
+    component.onSubmit();
+
+    expect(mockAuthService.login).toHaveBeenCalledWith('test', 'pass');
+    expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/');
+  });
+
+  test('should handle login error', () => {
+    const errorResponse = new Error('Login failed');
+    mockAuthService.login.mockReturnValue(throwError(() => errorResponse));
+
+    component.onSubmit();
+
+    expect(mockAuthService.login).toHaveBeenCalled();
   });
 });
