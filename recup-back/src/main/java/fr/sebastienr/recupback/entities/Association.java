@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Association {
@@ -19,20 +20,16 @@ public class Association {
     private Boolean active;
     @OneToMany(mappedBy = "association",  cascade = CascadeType.ALL)
     private List<Annonce> annonces = new ArrayList<>();
-    @OneToMany(mappedBy = "association",  cascade = CascadeType.ALL)
-    private List<Emprunteur> emprunteurs = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private AssociationStatus statut;// en_attente, validee, refusee
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "adresseId", referencedColumnName = "adresseId")
     private Adresse adresse;
-    @OneToMany(mappedBy = "annonce")
-    private List<Emprunt>  emprunts = new ArrayList<>();
 
     public Association() {
     }
 
-    public Association(String associationName, String associationEmail, String associationPassword, String associationRole, String associationDescription, Boolean active, List<Annonce> annonces, List<Emprunteur> emprunteurs, AssociationStatus statut,  Adresse adresse) {
+    public Association(String associationName, String associationEmail, String associationPassword, String associationRole, String associationDescription, Boolean active, List<Annonce> annonces, AssociationStatus statut,  Adresse adresse) {
         this.setAssociationName(associationName);
         this.setAssociationEmail(associationEmail);
         this.setAssociationPassword(associationPassword);
@@ -40,7 +37,6 @@ public class Association {
         this.setAssociationDescription(associationDescription);
         this.setActive(active);
         this.setAnnonces(annonces);
-        this.setEmprunteurs(emprunteurs);
         this.setStatut(statut);
         this.setAdresse(adresse);
     }
@@ -109,14 +105,6 @@ public class Association {
         this.annonces = annonces;
     }
 
-    public List<Emprunteur> getEmprunteurs() {
-        return emprunteurs;
-    }
-
-    public void setEmprunteurs(List<Emprunteur> emprunteurs) {
-        this.emprunteurs = emprunteurs;
-    }
-
     public AssociationStatus getStatut() {
         return statut;
     }
@@ -144,7 +132,6 @@ public class Association {
                 ", associationDescription='" + getAssociationDescription() + '\'' +
                 ", active=" + getActive() +
                 ", annonces=" + getAnnonces() +
-                ", emprunteurs=" + getEmprunteurs() +
                 ", statut=" + getStatut() + '\'' +
                 ", adresse=" + getAdresse() +
                 '}';
