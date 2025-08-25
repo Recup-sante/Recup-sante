@@ -24,6 +24,31 @@ public class Adresse {
         this.setVille(ville);
     }
 
+    public Adresse(Long adresseId, int numero, String nomRue, int codePostal, String ville) {
+        this.adresseId = adresseId;
+        this.numero = numero;
+        this.nomRue = nomRue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+    }
+
+    public Adresse(int numero, String nomRue, int codePostal, String ville, Association association) {
+        this.numero = numero;
+        this.nomRue = nomRue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.association = association;
+    }
+
+    public Adresse(Long adresseId, int numero, String nomRue, int codePostal, String ville, Association association) {
+        this.adresseId = adresseId;
+        this.numero = numero;
+        this.nomRue = nomRue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.association = association;
+    }
+
     public void setAdresseId(Long adresseId) {
         this.adresseId = adresseId;
     }
@@ -62,5 +87,25 @@ public class Adresse {
 
     public void setVille(String ville) {
         this.ville = ville;
+    }
+
+    public Association getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(Association association) {
+        this.association = association;
+    }
+
+    @Override
+    public String toString() {
+        return "Adresse{" +
+                "adresseId=" + adresseId +
+                ", numero=" + numero +
+                ", nomRue='" + nomRue + '\'' +
+                ", codePostal=" + codePostal +
+                ", ville='" + ville + '\'' +
+                ", association=" + association +
+                '}';
     }
 }
