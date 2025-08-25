@@ -5,7 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public abstract class AdminRepository implements JpaRepository<Admin, Long> {
-
-    public abstract Admin findByEmail(String email);
+public interface AdminRepository extends JpaRepository<Admin, Long> {
 }

@@ -25,6 +25,20 @@ public class Admin {
         this.setAdminRole(adminRole);
     }
 
+    public Admin(String adminEmail, String adminPassword, String adminRole) {
+        this.adminEmail = adminEmail;
+        this.adminPassword = adminPassword;
+        this.adminRole = adminRole;
+    }
+
+    public Admin(Long adminId, String adminName, String adminEmail, String adminPassword, String adminRole) {
+        this.adminId = adminId;
+        this.adminName = adminName;
+        this.adminEmail = adminEmail;
+        this.adminPassword = adminPassword;
+        this.adminRole = adminRole;
+    }
+
     public void setAdminId(Long adminId) {
         this.adminId = adminId;
     }
@@ -64,6 +78,7 @@ public class Admin {
     public void setAdminRole(String adminRole) {
         this.adminRole = adminRole;
     }
+
 
     @Override
     public String toString() {
