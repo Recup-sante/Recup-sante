@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { InscriptionAssociation } from './inscription-association';
 
 describe('InscriptionAssociation', () => {
@@ -8,16 +7,15 @@ describe('InscriptionAssociation', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InscriptionAssociation]
-    })
-    .compileComponents();
+      imports: [InscriptionAssociation],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InscriptionAssociation);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,10 +1,8 @@
-import {LoginComponent} from './login';
-import {describe, expect, test} from '@jest/globals';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {LoginComponent} from './login';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {of, throwError} from 'rxjs';
-
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -14,10 +12,10 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     mockAuthService = {
-      login: jest.fn()
+      login: vi.fn()
     };
     mockRouter = {
-      navigateByUrl: jest.fn()
+      navigateByUrl: vi.fn()
     };
 
     await TestBed.configureTestingModule({
